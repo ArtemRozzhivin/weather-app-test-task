@@ -3,7 +3,7 @@ import MuiButton from '@mui/material/Button';
 
 interface ButtonInterface {
   id?: string;
-  onClick?: () => void;
+  onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   className?: string;
   children: any;
   color?: 'primary' | 'inherit' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
@@ -16,9 +16,16 @@ const Button: React.FC<ButtonInterface> = ({
   children,
   color = 'primary',
   variant = 'outlined',
+  className,
 }) => {
   return (
-    <MuiButton id={id} fullWidth color={color} variant={variant} onClick={onClick}>
+    <MuiButton
+      className={className}
+      id={id}
+      fullWidth
+      color={color}
+      variant={variant}
+      onClick={(e) => onClick(e)}>
       {children}
     </MuiButton>
   );

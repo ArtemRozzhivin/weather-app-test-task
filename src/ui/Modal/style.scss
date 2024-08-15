@@ -1,0 +1,29 @@
+.modal {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 14px 5px;
+  min-width: 340px;
+  min-height: 200px;
+
+  &__closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+
+  &__icon {
+    width: 10px;
+    height: 10px;
+  }
+
+  &__main {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

@@ -1,0 +1,47 @@
+.card {
+  position: relative;
+  background-color: #cdebfd;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+  border-radius: 0.25rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: #0d0d0d;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  &__container {
+    text-align: center;
+    padding: 0.5rem;
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__delete {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+  }
+
+  &__icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  &__deleteButton {
+    width: 20px;
+    height: 20px;
+  }
+
+  &__title {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+}
