@@ -17,6 +17,7 @@ const Input: React.FC<InputInterface> = ({ value, onChange, className, placehold
       label={placeholder}
       variant='outlined'
       value={value}
+      error
       onChange={(e) => onChange(e.target.value)}
     />
   );

@@ -1,0 +1,100 @@
+$blueColor: #1e90ff;
+
+.detail {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  &__mainInfo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    font-size: 24px;
+    color: $blueColor;
+    padding: 20px;
+
+    &__container {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+    }
+  }
+
+  &__place {
+    font-size: 24px;
+  }
+}
+
+.weather {
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.blockTitle {
+  font-size: 24px;
+  color: $blueColor;
+  padding: 20px;
+}
+
+.dopInfo {
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+  }
+
+  &__block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+.wind {
+  &__container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  &__block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+.sunrise {
+  &__container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  &__block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+.graph {
+  &__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CitiesSliceType, CityType } from './types';
 import { RootState } from '../store';
 
@@ -38,5 +38,9 @@ export const citiesSlice = createSlice({
 export const { addUserCity, addCity, addWeatherToCity, deleteCity } = citiesSlice.actions;
 
 export const selectCities = (state: RootState) => state.cities;
+
+export const selectItemById = (state: RootState, itemId: string) => {
+  return state.cities.cities.find((item) => item.info.id === itemId);
+};
 
 export default citiesSlice.reducer;
