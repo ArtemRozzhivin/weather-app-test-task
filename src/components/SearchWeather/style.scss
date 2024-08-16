@@ -3,11 +3,38 @@
   width: 100%;
   margin: 0 auto;
 
+  &__title {
+    font-size: 50px;
+    font-weight: 700;
+    text-align: center;
+  }
+
   &__city {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     gap: 20px;
+  }
+
+  &__buttonBlock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &__button {
+    width: max-content !important;
+    display: inline;
+  }
+
+  &__cities {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
   }
 }

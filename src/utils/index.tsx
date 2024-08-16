@@ -11,14 +11,14 @@ export const getLatLon = (arr: [string, string]): { lat: number; lon: number } =
 
 export const getWindDirection = (degrees: number): string => {
   const directions = [
-    'Північний',
-    'Північно-Східний',
-    'Східний',
-    'Південно-Східний',
-    'Південний',
-    'Південно-Західний',
-    'Західний',
-    'Північно-Західний',
+    'North',
+    'Northeast',
+    'East',
+    'Southeast',
+    'South',
+    'Southwest',
+    'West',
+    'Northwest',
   ];
   const index = Math.round((degrees % 360) / 45);
   return directions[index % 8];

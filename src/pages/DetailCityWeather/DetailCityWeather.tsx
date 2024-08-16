@@ -9,7 +9,7 @@ import { useMemo } from 'react';
 import './style.scss';
 
 const DetailCityWeather = () => {
-  const { cityId } = useParams();
+  const { cityId = '' } = useParams();
   const city = useAppSelector((state) => selectItemById(state, cityId));
   const date = city?.weather ? convertUnixToUkrainianDate(city.weather.current.dt) : null;
   const sunrise = city?.weather ? convertUnixToUkrainianDate(city.weather.current.sunrise) : null;
@@ -93,33 +93,35 @@ const DetailCityWeather = () => {
 
           <Divider />
 
-          <div className='detail__wind wind'>
-            <h3 className='wind__title blockTitle'>Wind information</h3>
-            <div className='wind__container'>
-              <div className='wind__block'>
-                Wind speed
-                <div className='valueTitle'>{city.weather.current.wind_speed} m/s</div>
-              </div>
+          <div className='detail__thirdInfo'>
+            <div className='detail__wind wind'>
+              <h3 className='wind__title blockTitle'>Wind information</h3>
+              <div className='wind__container'>
+                <div className='wind__block'>
+                  Wind speed
+                  <div className='valueTitle'>{city.weather.current.wind_speed} m/s</div>
+                </div>
 
-              <div className='wind__block'>
-                Wind direction
-                <div className='valueTitle'>{getWindDirection(city.weather.current.wind_deg)}</div>
+                <div className='wind__block'>
+                  Wind direction
+                  <div className='valueTitle'>
+                    {getWindDirection(city.weather.current.wind_deg)}
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
 
-          <Divider />
-
-          <div className='detail__sunrise sunrise'>
-            <h3 className='sunrise__title blockTitle'>Sunrise information</h3>
-            <div className='sunrise__container'>
-              <div className='sunrise__block'>
-                Sunrise time
-                <div className='valueTitle'>{sunrise?.time}</div>
-              </div>
-              <div className='sunrise__block'>
-                Sunset time
-                <div className='valueTitle'>{sunset?.time}</div>
+            <div className='detail__sunrise sunrise'>
+              <h3 className='sunrise__title blockTitle'>Sunrise information</h3>
+              <div className='sunrise__container'>
+                <div className='sunrise__block'>
+                  Sunrise time
+                  <div className='valueTitle'>{sunrise?.time}</div>
+                </div>
+                <div className='sunrise__block'>
+                  Sunset time
+                  <div className='valueTitle'>{sunset?.time}</div>
+                </div>
               </div>
             </div>
           </div>

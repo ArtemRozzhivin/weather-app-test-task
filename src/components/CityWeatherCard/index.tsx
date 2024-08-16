@@ -1,19 +1,16 @@
 import React, { useEffect } from 'react';
 import { CityType } from '../../redux/cities/types';
-import axios from 'axios';
-import { checkTempSign, convertUnixToUkrainianDate } from '../../utils';
-import './style.scss';
+import { checkTempSign } from '../../utils';
 import Button from '../../ui/Button';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import { useAppDispatch } from '../../hooks';
 import { addWeatherToCity, deleteCity } from '../../redux/cities/slice';
 import { useGetWeatherQuery } from '../../redux/api/apiSlice';
-
-const apiKey = import.meta.env.VITE_API_KEY;
+import './style.scss';
 
 const CityWeatherCard = ({ city }: { city: CityType }) => {
   const dispatch = useAppDispatch();
-  const { data, isError, error, isSuccess, isLoading } = useGetWeatherQuery({
+  const { data, isError, error, isSuccess, isLoading, refetch } = useGetWeatherQuery({
     lat: city.info.lat,
     lon: city.info.lon,
   });
@@ -30,7 +27,7 @@ const CityWeatherCard = ({ city }: { city: CityType }) => {
 
   const onRefreshWeather = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    fetchWeatherByCity();
+    refetch();
   };
 
   useEffect(() => {
@@ -39,9 +36,9 @@ const CityWeatherCard = ({ city }: { city: CityType }) => {
 
   return (
     <>
-      {!city.weather ? (
-        <div>Loading...</div>
-      ) : (
+      {isLoading && <div>Loading...</div>}
+      {isError && <div>{error as string}</div>}
+      {city.weather && (
         <div className='card'>
           <div className='card__delete'>
             <button type='button' onClick={onDeleteCity}>
@@ -65,14 +62,13 @@ const CityWeatherCard = ({ city }: { city: CityType }) => {
               />
             </div>
 
+            <div>{city.weather.current.weather[0].main}</div>
+
             <div>Feels like: {checkTempSign(city.weather.current.feels_like)}°C</div>
 
-            <div>
-              {city.weather.current.weather[0].main}
-              {/* or current.weather[0].description */}
-            </div>
-
-            <Button onClick={(e) => onRefreshWeather(e)}>Update data</Button>
+            <Button className='card__button' onClick={(e) => onRefreshWeather(e)}>
+              Update data
+            </Button>
           </div>
         </div>
       )}

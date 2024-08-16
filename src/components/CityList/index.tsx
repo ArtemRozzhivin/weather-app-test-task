@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import CityWeatherCard from '../CityWeatherCard';
-
 import { useEffect } from 'react';
 import { addCity } from '../../redux/cities/slice';
+
 import './style.scss';
 
 const CityList = () => {
@@ -14,8 +14,10 @@ const CityList = () => {
     const items = [];
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
-      const value = localStorage.getItem(key);
-      value && items.push(JSON.parse(value));
+      if (key) {
+        const value = localStorage.getItem(key);
+        value && items.push(JSON.parse(value));
+      }
     }
     return items;
   };

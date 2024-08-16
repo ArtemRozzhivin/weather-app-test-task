@@ -34,10 +34,15 @@ export const citiesSlice = createSlice({
     deleteCity: (state, action: PayloadAction<string>) => {
       state.cities = state.cities.filter((city) => city.info.id !== action.payload);
     },
+
+    deleteAllCities: (state) => {
+      state.cities = [];
+    },
   },
 });
 
-export const { addUserCity, addCity, addWeatherToCity, deleteCity } = citiesSlice.actions;
+export const { addUserCity, addCity, addWeatherToCity, deleteCity, deleteAllCities } =
+  citiesSlice.actions;
 
 export const selectCities = (state: RootState) => state.cities;
 

@@ -1,7 +1,9 @@
+@import './src/variables';
+
 .card {
   position: relative;
-  background-color: #cdebfd;
-  border: 1px solid #ccc;
+  background-color: $secondBgColor;
+  border: 1px solid $textColor;
   padding: 10px;
   margin: 10px;
   text-align: center;
@@ -9,17 +11,18 @@
   transition: all 0.3s ease;
 
   &:hover {
-    border-color: #0d0d0d;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+    border-color: #000;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
   }
 
   &__container {
     text-align: center;
     padding: 0.5rem;
-    padding-top: 50px;
+    padding-top: 20px;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 10px;
   }
 
@@ -43,5 +46,9 @@
   &__title {
     font-size: 1.2rem;
     font-weight: 600;
+  }
+
+  &__button {
+    width: max-content !important;
   }
 }

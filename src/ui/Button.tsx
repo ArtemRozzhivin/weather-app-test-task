@@ -6,7 +6,7 @@ interface ButtonInterface {
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   className?: string;
   children: any;
-  type?: string;
+  type?: 'button' | 'submit' | 'reset';
   color?: 'primary' | 'inherit' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
   variant?: 'text' | 'outlined' | 'contained';
 }
@@ -15,7 +15,7 @@ const Button: React.FC<ButtonInterface> = ({
   id,
   onClick,
   children,
-  type,
+  type = 'button',
   color = 'primary',
   variant = 'outlined',
   className,

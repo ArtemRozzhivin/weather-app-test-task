@@ -12,7 +12,8 @@ const CiryCard: React.FC<CityCardInterface> = ({ name, lat, lon, country, state 
   return (
     <>
       <div>
-        {name}, {country}, {state}
+        {name}, {country}
+        {state && <span>, {state}</span>}
       </div>
       <div>
         lat: {lat}, lon: {lon}

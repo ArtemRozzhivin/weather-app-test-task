@@ -1,3 +1,5 @@
+@import 'variables';
+
 html,
 body,
 div,
@@ -94,14 +96,14 @@ nav,
 section {
   display: block;
 }
-body {
-  line-height: 1;
-}
+
 ol,
 ul {
   list-style: none;
 }
 
 body {
-  padding: 50px;
+  background-color: $bgColor;
+  color: $textColor;
+  line-height: 1;
 }

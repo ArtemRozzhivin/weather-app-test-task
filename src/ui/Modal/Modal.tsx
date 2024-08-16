@@ -1,6 +1,7 @@
 import React from 'react';
 import { Dialog } from '@mui/material';
 import Button from '../Button';
+import { XMarkIcon } from '@heroicons/react/24/solid';
 
 import './style.scss';
 
@@ -16,19 +17,10 @@ const Modal: React.FC<ModalInterface> = ({ isOpen, children, onClose }) => {
     <Dialog open={isOpen} onClose={onClose}>
       <div className='modal'>
         <div className='modal__closeButton'>
-          <Button onClick={onClose}>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              fill='none'
-              viewBox='0 0 24 24'
-              strokeWidth='1.5'
-              stroke='currentColor'
-              className='modal__icon'>
-              <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12' />
-            </svg>
-          </Button>
+          <button type='button' onClick={onClose}>
+            <XMarkIcon className='card__icon' />
+          </button>
         </div>
-
         <div className='modal__main'>{children}</div>
       </div>
     </Dialog>

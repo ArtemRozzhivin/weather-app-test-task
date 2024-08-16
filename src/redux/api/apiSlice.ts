@@ -11,7 +11,7 @@ export const apiSlice = createApi({
         url: `http://api.openweathermap.org/geo/1.0/direct?q=${searchCity}&limit=5&appid=${apiKey}`,
       }),
       transformResponse: (response) => response,
-      transformErrorResponse: (response) => response.data.message,
+      transformErrorResponse: (response) => (response.data as any).message,
     }),
 
     getWeather: build.query({
@@ -19,8 +19,7 @@ export const apiSlice = createApi({
         url: `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=metric&lang=ua&exclude=minutely,alerts&appid=${apiKey}`,
       }),
       transformResponse: (response) => response,
-      //@ts-ignore
-      transformErrorResponse: (response) => response.data.message,
+      transformErrorResponse: (response) => (response.data as any).message,
     }),
   }),
 });
