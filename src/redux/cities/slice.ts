@@ -15,6 +15,8 @@ export const citiesSlice = createSlice({
       state.userCity = action.payload;
     },
     addCity: (state, action: PayloadAction<CityType>) => {
+      if (state.cities.find((city) => city.info.id === action.payload.info.id)) return;
+
       state.cities = [...state.cities, action.payload];
     },
 

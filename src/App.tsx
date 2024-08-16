@@ -1,4 +1,3 @@
-import axios from 'axios';
 import SearchWeather from './components/SearchWeather/SearchWeather';
 import CityList from './components/CityList';
 

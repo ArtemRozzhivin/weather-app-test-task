@@ -7,7 +7,6 @@ import Button from '../../ui/Button';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import { useAppDispatch } from '../../hooks';
 import { addWeatherToCity, deleteCity } from '../../redux/cities/slice';
-import { Link } from 'react-router-dom';
 
 const apiKey = import.meta.env.VITE_API_KEY;
 
@@ -45,8 +44,8 @@ const CityWeatherCard = ({ city }: { city: CityType }) => {
       ) : (
         <div className='card'>
           <div className='card__delete'>
-            <button onClick={onDeleteCity}>
-              <XMarkIcon className='card_icon' />
+            <button type='button' onClick={onDeleteCity}>
+              <XMarkIcon className='card__icon' />
             </button>
           </div>
           <div className='card__container'>

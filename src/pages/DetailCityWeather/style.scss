@@ -43,6 +43,11 @@ $blueColor: #1e90ff;
   padding: 20px;
 }
 
+.valueTitle {
+  font-size: 20px;
+  color: $blueColor;
+}
+
 .dopInfo {
   &__container {
     display: flex;

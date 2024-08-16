@@ -10,8 +10,6 @@ const CityList = () => {
   const dispatch = useAppDispatch();
   const { cities } = useAppSelector((state) => state.cities);
 
-  console.log(cities);
-
   const getAllLocalStorageItems = () => {
     const items = [];
     for (let i = 0; i < localStorage.length; i++) {

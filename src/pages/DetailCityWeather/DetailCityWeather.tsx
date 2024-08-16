@@ -74,19 +74,19 @@ const DetailCityWeather = () => {
             <div className='dopInfo__container'>
               <div className='dopInfo__block'>
                 Humidity
-                <div>{city.weather.current.humidity}%</div>
+                <div className='valueTitle'>{city.weather.current.humidity}%</div>
               </div>
               <div className='dopInfo__block'>
                 Pressure
-                <div>{city.weather.current.pressure} mm Hg. Art.</div>
+                <div className='valueTitle'>{city.weather.current.pressure} mm Hg. Art.</div>
               </div>
               <div className='dopInfo__block'>
                 Cloudiness
-                <div>{city.weather.current.clouds}%</div>
+                <div className='valueTitle'>{city.weather.current.clouds}%</div>
               </div>
               <div className='dopInfo__block'>
                 Uvi
-                <div>{city.weather.current.uvi}</div>
+                <div className='valueTitle'>{city.weather.current.uvi}</div>
               </div>
             </div>
           </div>
@@ -98,12 +98,12 @@ const DetailCityWeather = () => {
             <div className='wind__container'>
               <div className='wind__block'>
                 Wind speed
-                <div className='text-2xl'>{city.weather.current.wind_speed} m/s</div>
+                <div className='valueTitle'>{city.weather.current.wind_speed} m/s</div>
               </div>
 
               <div className='wind__block'>
                 Wind direction
-                <div className='text-2xl'>{getWindDirection(city.weather.current.wind_deg)}</div>
+                <div className='valueTitle'>{getWindDirection(city.weather.current.wind_deg)}</div>
               </div>
             </div>
           </div>
@@ -115,11 +115,11 @@ const DetailCityWeather = () => {
             <div className='sunrise__container'>
               <div className='sunrise__block'>
                 Sunrise time
-                <div className='text-2xl'>{sunrise?.time}</div>
+                <div className='valueTitle'>{sunrise?.time}</div>
               </div>
               <div className='sunrise__block'>
                 Sunset time
-                <div className='text-2xl'>{sunset?.time}</div>
+                <div className='valueTitle'>{sunset?.time}</div>
               </div>
             </div>
           </div>
@@ -141,6 +141,7 @@ const DetailCityWeather = () => {
                     curve: 'linear',
                     data: tempData,
                     label: 'Temperature, °C',
+                    color: '#1e90ff',
                   },
                 ]}
                 grid={{ vertical: true, horizontal: true }}

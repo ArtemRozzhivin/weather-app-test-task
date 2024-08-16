@@ -1,0 +1,41 @@
+.input {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  &__element {
+    position: relative;
+  }
+
+  &__clearIcon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+  }
+
+  &__errorIcon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  &__icon {
+    width: 20px;
+    height: 20px;
+    &-red {
+      color: red;
+    }
+  }
+
+  &__error {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: red;
+  }
+}
