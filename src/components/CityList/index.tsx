@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import CityWeatherCard from '../CityWeatherCard';
 
-import './style.scss';
 import { useEffect } from 'react';
 import { addCity } from '../../redux/cities/slice';
+import './style.scss';
 
 const CityList = () => {
   const dispatch = useAppDispatch();

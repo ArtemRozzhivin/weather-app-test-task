@@ -8,7 +8,7 @@ export interface CityCardInterface {
   state?: string;
 }
 
-const index: React.FC<CityCardInterface> = ({ name, lat, lon, country, state }) => {
+const CiryCard: React.FC<CityCardInterface> = ({ name, lat, lon, country, state }) => {
   return (
     <>
       <div>
@@ -21,4 +21,4 @@ const index: React.FC<CityCardInterface> = ({ name, lat, lon, country, state }) 
   );
 };
 
-export default index;
+export default CiryCard;

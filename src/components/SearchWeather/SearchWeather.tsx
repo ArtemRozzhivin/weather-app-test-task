@@ -13,8 +13,7 @@ import { addCity } from '../../redux/cities/slice';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-
-const apiKey = import.meta.env.VITE_API_KEY;
+import { apiSlice, useGetCitiesQuery } from '../../redux/api/apiSlice';
 
 const schema = yup.object({
   city: yup.string().required('City is required'),
@@ -22,13 +21,15 @@ const schema = yup.object({
 
 const SearchWeather: React.FC = () => {
   const dispatch = useAppDispatch();
-  const [cities, setCities] = useState<CityInfoType[]>([]);
+  // const [cities, setCities] = useState<CityInfoType[]>([]);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const {
     control,
     handleSubmit,
     reset,
+    getValues,
+    getFieldState,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -38,7 +39,10 @@ const SearchWeather: React.FC = () => {
   });
 
   const onSubmit = (data: { city: string }) => {
-    fetchCities(data.city);
+    if (!(errors.city && getFieldState('city').isDirty)) {
+      trigger({ searchCity: data.city });
+    }
+
     setIsOpenModal(true);
   };
 
@@ -46,13 +50,10 @@ const SearchWeather: React.FC = () => {
     setIsOpenModal(false);
   };
 
-  const fetchCities = async (searchCity: string) => {
-    const { data } = await axios.get(
-      `http://api.openweathermap.org/geo/1.0/direct?q=${searchCity}&limit=5&appid=${apiKey}`,
-    );
+  const [trigger, { data, isError, error, isSuccess, isLoading }] =
+    apiSlice.endpoints.getCities.useLazyQuery();
 
-    setCities(data);
-  };
+  console.log('CITIES', data);
 
   const clickCityCard = (city: CityInfoType) => {
     const id = uuidv4();
@@ -81,13 +82,17 @@ const SearchWeather: React.FC = () => {
       </form>
 
       <Modal onClose={closeModal} isOpen={isOpenModal}>
-        <ul className='cardList'>
-          {cities.map((city: CityInfoType) => (
-            <Button key={city.lat + city.lon + city.name} onClick={() => clickCityCard(city)}>
-              <CityCard {...city} />
-            </Button>
-          ))}
-        </ul>
+        {isLoading && <div>Loading...</div>}
+        {isError && <div>{error}</div>}
+        {isSuccess && (
+          <div className='search__cities'>
+            {data.map((city: CityInfoType) => (
+              <Button key={city.lat + city.lon + city.name} onClick={() => clickCityCard(city)}>
+                <CityCard {...city} />
+              </Button>
+            ))}
+          </div>
+        )}
       </Modal>
     </div>
   );

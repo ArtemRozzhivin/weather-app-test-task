@@ -7,18 +7,18 @@ import Button from '../../ui/Button';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import { useAppDispatch } from '../../hooks';
 import { addWeatherToCity, deleteCity } from '../../redux/cities/slice';
+import { useGetWeatherQuery } from '../../redux/api/apiSlice';
 
 const apiKey = import.meta.env.VITE_API_KEY;
 
 const CityWeatherCard = ({ city }: { city: CityType }) => {
   const dispatch = useAppDispatch();
+  const { data, isError, error, isSuccess, isLoading } = useGetWeatherQuery({
+    lat: city.info.lat,
+    lon: city.info.lon,
+  });
 
   const fetchWeatherByCity = async () => {
-    const { data } = await axios.get(
-      `https://api.openweathermap.org/data/3.0/onecall?lat=${city.info.lat}&lon=${city.info.lon}&units=metric&lang=ua&exclude=minutely,alerts&appid=${apiKey}`,
-    );
-
-    console.log({ id: city.info.id, weather: data });
     dispatch(addWeatherToCity({ id: city.info.id, weather: data }));
   };
 
@@ -35,7 +35,7 @@ const CityWeatherCard = ({ city }: { city: CityType }) => {
 
   useEffect(() => {
     fetchWeatherByCity();
-  }, []);
+  }, [data]);
 
   return (
     <>
