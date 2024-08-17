@@ -9,7 +9,7 @@ export const apiSlice = createApi({
   endpoints: (build) => ({
     getCities: build.query({
       query: ({ searchCity }) => ({
-        url: `http://api.openweathermap.org/geo/1.0/direct?q=${searchCity}&limit=5&appid=${apiKey}`,
+        url: `https://api.openweathermap.org/geo/1.0/direct?q=${searchCity}&limit=5&appid=${apiKey}`,
       }),
       transformResponse: (response: CityInfoType[]) => response,
       transformErrorResponse: (response) => (response.data as any).message,
