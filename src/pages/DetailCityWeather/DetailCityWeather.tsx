@@ -1,16 +1,22 @@
 import { Link, useParams } from 'react-router-dom';
-import { useAppSelector } from '../../hooks';
-import { selectItemById } from '../../redux/cities/slice';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { addCity, addWeatherToCity, selectItemById } from '../../redux/cities/slice';
 import { checkTempSign, convertUnixToUkrainianDate, getWindDirection } from '../../utils';
 import { Divider } from '@mui/material';
 import { LineChart } from '@mui/x-charts/LineChart';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { ArrowLeftIcon } from '@heroicons/react/24/solid';
 import routes from '../../routes';
+import { apiSlice } from '../../redux/api/apiSlice';
+import { weatherType } from '../../redux/cities/types';
+import Loader from '../../components/Loader';
 
 import './style.scss';
 
 const DetailCityWeather = () => {
+  const dispatch = useAppDispatch();
+  const [trigger, { data, isError, isSuccess, isLoading }] =
+    apiSlice.endpoints.getWeather.useLazyQuery();
   const { cityId = '' } = useParams();
   const city = useAppSelector((state) => selectItemById(state, cityId));
   const date = city?.weather ? convertUnixToUkrainianDate(city.weather.current.dt) : null;
@@ -36,6 +42,26 @@ const DetailCityWeather = () => {
 
   const { xAxisData, tempData } = useMemo(getGraphData, [city?.weather?.hourly ?? []]);
 
+  const getLocalStorageCity = () => {
+    const value = localStorage.getItem(JSON.stringify(cityId));
+
+    return value ? JSON.parse(value) : null;
+  };
+
+  useEffect(() => {
+    if (!city) {
+      const userCity = getLocalStorageCity();
+      dispatch(addCity({ info: userCity, weather: null }));
+      trigger({ lat: userCity.lat, lon: userCity.lon });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isSuccess && data) {
+      dispatch(addWeatherToCity({ id: cityId, weather: data as weatherType }));
+    }
+  }, [isSuccess, data]);
+
   return (
     <>
       <div className='wrapper'>
@@ -43,12 +69,18 @@ const DetailCityWeather = () => {
           <Link to={routes.main} className='detail__back'>
             <ArrowLeftIcon className='detail__backIcon' /> <span>Back</span>
           </Link>
-          {!city || !city.weather ? (
+          {isLoading && (
+            <div className='detail__loading'>
+              <Loader />
+            </div>
+          )}
+          {isError && (
             <div className='detail__error'>
               <h3>City not found 😞</h3>
               <h4>Try to find another city</h4>
             </div>
-          ) : (
+          )}
+          {city && city.weather && (
             <>
               <div className='detail__container'>
                 <div className='detail__mainInfo'>
