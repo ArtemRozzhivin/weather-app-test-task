@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .search {
   max-width: 600px;
   width: 100%;
@@ -7,6 +9,10 @@
     font-size: 50px;
     font-weight: 700;
     text-align: center;
+
+    @media (max-width: 500px) {
+      font-size: 30px;
+    }
   }
 
   &__city {
@@ -15,6 +21,9 @@
     align-items: center;
     flex-direction: column;
     gap: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 10px;
   }
 
   &__buttonBlock {
@@ -28,13 +37,29 @@
     width: max-content !important;
     display: inline;
   }
+}
 
-  &__cities {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    flex-wrap: wrap;
+.searchModal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+
+  &__title {
+    font-size: 25px;
+    font-weight: 700;
+    text-align: center;
+    margin: 10px 0px;
+    color: $textColor;
+  }
+
+  &__notFound {
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    margin: 10px 0px;
+    color: $textColor;
   }
 }

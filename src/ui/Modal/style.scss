@@ -1,8 +1,11 @@
 .modal {
   position: relative;
   padding: 15px;
-  min-width: 340px;
+  min-width: 250px;
   min-height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &__closeButton {
     position: absolute;
@@ -20,7 +23,6 @@
     padding: 10px 0px;
     height: 100%;
     width: 100%;
-    padding-top: 30px;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -7,6 +7,8 @@ import { useAppDispatch } from '../../hooks';
 import { addWeatherToCity, deleteCity } from '../../redux/cities/slice';
 import { useGetWeatherQuery } from '../../redux/api/apiSlice';
 import './style.scss';
+import { toast } from 'react-toastify';
+import Loader from '../Loader/idnex';
 
 const CityWeatherCard = ({ city }: { city: CityType }) => {
   const dispatch = useAppDispatch();
@@ -23,11 +25,13 @@ const CityWeatherCard = ({ city }: { city: CityType }) => {
     e.preventDefault();
     localStorage.removeItem(JSON.stringify(city.info.id));
     dispatch(deleteCity(city.info.id));
+    toast.success('City deleted');
   };
 
   const onRefreshWeather = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     refetch();
+    toast.success('Weather data updated');
   };
 
   useEffect(() => {
@@ -36,7 +40,12 @@ const CityWeatherCard = ({ city }: { city: CityType }) => {
 
   return (
     <>
-      {isLoading && <div>Loading...</div>}
+      {isLoading && (
+        <div className='cardLoading'>
+          <Loader />
+        </div>
+      )}
+
       {isError && <div>{error as string}</div>}
       {city.weather && (
         <div className='card'>
@@ -66,9 +75,11 @@ const CityWeatherCard = ({ city }: { city: CityType }) => {
 
             <div>Feels like: {checkTempSign(city.weather.current.feels_like)}°C</div>
 
-            <Button className='card__button' onClick={(e) => onRefreshWeather(e)}>
-              Update data
-            </Button>
+            <div className='card__buttonContainer'>
+              <Button className='card__button' onClick={(e) => onRefreshWeather(e)}>
+                Update data
+              </Button>
+            </div>
           </div>
         </div>
       )}

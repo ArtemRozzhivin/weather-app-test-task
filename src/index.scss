@@ -1,5 +1,9 @@
 @import 'variables';
 
+* {
+  box-sizing: border-box;
+}
+
 html,
 body,
 div,
@@ -106,4 +110,20 @@ body {
   background-color: $bgColor;
   color: $textColor;
   line-height: 1;
+}
+
+@font-face {
+  font-family: 'MyCustomFont';
+  src: url('/src/assets/Moderustic-VariableFont_wght.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'MyCustomFont', sans-serif;
+  background-image: url('../src/assets/img/background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
 }

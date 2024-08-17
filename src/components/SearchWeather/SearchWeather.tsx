@@ -8,12 +8,13 @@ import { v4 as uuidv4 } from 'uuid';
 import './style.scss';
 import { useAppDispatch } from '../../hooks';
 import { CityInfoType } from '../../redux/cities/types';
-import CityCard from './CityCard';
 import { addCity, deleteAllCities } from '../../redux/cities/slice';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { apiSlice } from '../../redux/api/apiSlice';
+import CityCard from './CityCard';
+import { toast } from 'react-toastify';
 
 const schema = yup.object({
   city: yup.string().required('City is required'),
@@ -22,6 +23,15 @@ const schema = yup.object({
 const SearchWeather: React.FC = () => {
   const dispatch = useAppDispatch();
   const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const [trigger, { data, isError, error, isSuccess, isLoading }] =
+    apiSlice.endpoints.getCities.useLazyQuery();
+
+  console.log(data, 'data');
+  console.log(isError, 'isError');
+  console.log(error, 'error');
+  console.log(isSuccess, 'isSuccess');
+  console.log(isLoading, 'isLoading');
 
   const {
     control,
@@ -48,9 +58,6 @@ const SearchWeather: React.FC = () => {
     setIsOpenModal(false);
   };
 
-  const [trigger, { data, isError, error, isSuccess, isLoading }] =
-    apiSlice.endpoints.getCities.useLazyQuery();
-
   const clickCityCard = (city: CityInfoType) => {
     const id = uuidv4();
     const cityWithId = { ...city, id };
@@ -64,6 +71,7 @@ const SearchWeather: React.FC = () => {
   };
 
   const onDeleteAllCities = () => {
+    toast.success('All cities deleted');
     localStorage.clear();
     dispatch(deleteAllCities());
   };
@@ -81,10 +89,11 @@ const SearchWeather: React.FC = () => {
         />
 
         <div className='search__buttonBlock'>
-          <Button className='search__button' type='submit'>
+          <Button variant='contained' className='search__button' type='submit'>
             Search
           </Button>
           <Button
+            variant='contained'
             color='error'
             className='search__button'
             onClick={onDeleteAllCities}
@@ -95,16 +104,27 @@ const SearchWeather: React.FC = () => {
       </form>
 
       <Modal onClose={closeModal} isOpen={isOpenModal}>
-        {isLoading && <div>Loading...</div>}
+        {isLoading && <div className='loading'>Loading...</div>}
         {isError && <div>{error as string}</div>}
         {isSuccess && (
-          <div className='search__cities'>
-            {data.map((city: CityInfoType) => (
-              <Button key={city.lat + city.lon + city.name} onClick={() => clickCityCard(city)}>
-                <CityCard {...city} />
-              </Button>
-            ))}
-          </div>
+          <>
+            <div className='search__modal searchModal'>
+              {!data.length ? (
+                <div className='searchModal__notFound'>City not found 😕</div>
+              ) : (
+                <>
+                  <h4 className='searchModal__title'>Choose your city</h4>
+                  {data.map((city: CityInfoType) => (
+                    <Button
+                      key={city.lat + city.lon + city.name}
+                      onClick={() => clickCityCard(city)}>
+                      <CityCard {...city} />
+                    </Button>
+                  ))}
+                </>
+              )}
+            </div>
+          </>
         )}
       </Modal>
     </div>
