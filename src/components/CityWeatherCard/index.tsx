@@ -1,24 +1,25 @@
 import React, { useEffect } from 'react';
-import { CityType } from '../../redux/cities/types';
+import { CityType, weatherType } from '../../redux/cities/types';
 import { checkTempSign } from '../../utils';
 import Button from '../../ui/Button';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import { useAppDispatch } from '../../hooks';
 import { addWeatherToCity, deleteCity } from '../../redux/cities/slice';
 import { useGetWeatherQuery } from '../../redux/api/apiSlice';
-import './style.scss';
 import { toast } from 'react-toastify';
-import Loader from '../Loader/idnex';
+import Loader from '../Loader';
+
+import './style.scss';
 
 const CityWeatherCard = ({ city }: { city: CityType }) => {
   const dispatch = useAppDispatch();
-  const { data, isError, error, isSuccess, isLoading, refetch } = useGetWeatherQuery({
+  const { data, isError, error, isLoading, refetch } = useGetWeatherQuery({
     lat: city.info.lat,
     lon: city.info.lon,
   });
 
   const fetchWeatherByCity = async () => {
-    dispatch(addWeatherToCity({ id: city.info.id, weather: data }));
+    dispatch(addWeatherToCity({ id: city.info.id, weather: data as weatherType }));
   };
 
   const onDeleteCity = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -62,7 +63,7 @@ const CityWeatherCard = ({ city }: { city: CityType }) => {
             </div>
 
             <div>
-              <div className='text-7xl'>{checkTempSign(city.weather.current.temp)}°C</div>
+              <div>{checkTempSign(city.weather.current.temp)}°C</div>
               <img
                 width={80}
                 height={80}

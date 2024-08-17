@@ -1,6 +1,5 @@
 import React from 'react';
 import { Dialog } from '@mui/material';
-import Button from '../Button';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 
 import './style.scss';

@@ -17,7 +17,7 @@ const DetailCityWeather = () => {
   const sunrise = city?.weather ? convertUnixToUkrainianDate(city.weather.current.sunrise) : null;
   const sunset = city?.weather ? convertUnixToUkrainianDate(city.weather.current.sunset) : null;
 
-  const { xAxisData, tempData } = useMemo(() => {
+  const getGraphData = () => {
     const xAxisData: number[] = [];
     const tempData: number[] = [];
 
@@ -32,7 +32,9 @@ const DetailCityWeather = () => {
     });
 
     return { xAxisData, tempData };
-  }, [city?.weather?.hourly ?? []]);
+  };
+
+  const { xAxisData, tempData } = useMemo(getGraphData, [city?.weather?.hourly ?? []]);
 
   return (
     <>
@@ -41,7 +43,7 @@ const DetailCityWeather = () => {
           <Link to={routes.main} className='detail__back'>
             <ArrowLeftIcon className='detail__backIcon' /> <span>Back</span>
           </Link>
-          {!city ? (
+          {!city || !city.weather ? (
             <div className='detail__error'>
               <h3>City not found 😞</h3>
               <h4>Try to find another city</h4>
@@ -63,10 +65,11 @@ const DetailCityWeather = () => {
 
                   <div className='detail__weather weather'>
                     <div className='weather__container'>
-                      <div>
+                      <div className='weather__tempBlock'>
                         <div className='weather__temp'>
                           {checkTempSign(city.weather.current.temp)}°C
                         </div>
+                        <div>Feels like: {checkTempSign(city.weather.current.feels_like)}°C</div>
                       </div>
                       <img
                         width={80}

@@ -1,11 +1,8 @@
-import axios from 'axios';
 import React, { useState } from 'react';
 import Input from '../../ui/Input/Input';
 import Button from '../../ui/Button';
 import Modal from '../../ui/Modal/Modal';
 import { v4 as uuidv4 } from 'uuid';
-
-import './style.scss';
 import { useAppDispatch } from '../../hooks';
 import { CityInfoType } from '../../redux/cities/types';
 import { addCity, deleteAllCities } from '../../redux/cities/slice';
@@ -15,6 +12,8 @@ import * as yup from 'yup';
 import { apiSlice } from '../../redux/api/apiSlice';
 import CityCard from './CityCard';
 import { toast } from 'react-toastify';
+
+import './style.scss';
 
 const schema = yup.object({
   city: yup.string().required('City is required'),
@@ -26,12 +25,6 @@ const SearchWeather: React.FC = () => {
 
   const [trigger, { data, isError, error, isSuccess, isLoading }] =
     apiSlice.endpoints.getCities.useLazyQuery();
-
-  console.log(data, 'data');
-  console.log(isError, 'isError');
-  console.log(error, 'error');
-  console.log(isSuccess, 'isSuccess');
-  console.log(isLoading, 'isLoading');
 
   const {
     control,

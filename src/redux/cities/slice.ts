@@ -1,26 +1,22 @@
-import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CitiesSliceType, CityType } from './types';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { CitiesSliceType, CityType, weatherType } from './types';
 import { RootState } from '../store';
 
 export const initialState: CitiesSliceType = {
   cities: [],
-  userCity: {} as CityType,
 };
 
 export const citiesSlice = createSlice({
   name: 'cities',
   initialState,
   reducers: {
-    addUserCity: (state, action: PayloadAction<CityType>) => {
-      state.userCity = action.payload;
-    },
     addCity: (state, action: PayloadAction<CityType>) => {
       if (state.cities.find((city) => city.info.id === action.payload.info.id)) return;
 
       state.cities = [...state.cities, action.payload];
     },
 
-    addWeatherToCity: (state, action: PayloadAction<{ id: string; weather: any }>) => {
+    addWeatherToCity: (state, action: PayloadAction<{ id: string; weather: weatherType }>) => {
       const cityIndex = state.cities.findIndex((city) => city.info.id === action.payload.id);
 
       if (cityIndex !== -1) {
@@ -41,8 +37,7 @@ export const citiesSlice = createSlice({
   },
 });
 
-export const { addUserCity, addCity, addWeatherToCity, deleteCity, deleteAllCities } =
-  citiesSlice.actions;
+export const { addCity, addWeatherToCity, deleteCity, deleteAllCities } = citiesSlice.actions;
 
 export const selectCities = (state: RootState) => state.cities;
 
