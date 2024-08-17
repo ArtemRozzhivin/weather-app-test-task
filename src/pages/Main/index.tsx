@@ -1,4 +1,4 @@
-import SearchWeather from '../../components/SearchWeather/SearchWeather';
+import SearchWeather from '../../components/SearchWeather';
 import CityList from '../../components/CityList';
 
 import './style.scss';

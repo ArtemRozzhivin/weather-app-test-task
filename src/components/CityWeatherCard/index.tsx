@@ -42,7 +42,7 @@ const CityWeatherCard = ({ city }: { city: CityType }) => {
   return (
     <>
       {isLoading && (
-        <div className='cardLoading'>
+        <div className='cardLoading' data-testid='loading'>
           <Loader />
         </div>
       )}
