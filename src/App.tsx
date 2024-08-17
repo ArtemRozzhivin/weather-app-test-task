@@ -3,9 +3,9 @@ import { ToastContainer } from 'react-toastify';
 import { Provider } from 'react-redux';
 import { store } from './redux/store.ts';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import DetailCityWeather from './pages/DetailCityWeather/DetailCityWeather.tsx';
 import routes from './routes/index.tsx';
 import Main from './pages/Main/index.tsx';
+import DetailCityWeather from './pages/DetailCityWeather/index.tsx';
 
 import './App.scss';
 import 'react-toastify/dist/ReactToastify.css';
