@@ -67,7 +67,7 @@ const CityWeatherCard = ({ city }: { city: CityType }) => {
               <img
                 width={80}
                 height={80}
-                src={`http://openweathermap.org/img/wn/${city.weather.current.weather[0].icon}.png`}
+                src={`https://openweathermap.org/img/wn/${city.weather.current.weather[0].icon}.png`}
                 alt='weather'
               />
             </div>
